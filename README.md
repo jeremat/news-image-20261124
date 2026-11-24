@@ -50,11 +50,14 @@ Harry Kane's injury, the states suing SpaceX, the EU sanctions plan).
     foreign astronaut.
 
 Every story is labelled CONFIRMED, REPORTED or CLAIM, with its source.
-All artwork is original, drawn with code — no photographs, no copied logos.
+All artwork is original — the 9 lead and medium illustrations are
+generated editorial drawings (in `assets-v3/`), the rest is drawn with
+code. No photographs, no copied logos.
 
 ## How it is built
 
-`draw_news.py` draws the 1024x1024 front page with PIL (DejaVu fonts) and
+`draw_news.py` draws the 1024x1024 front page with PIL (DejaVu fonts),
+compositing the generated editorial illustrations from `assets-v3/`, and
 writes `entry.png`. `main.py` (Python standard library only, no network)
 copies that image to the output directory the grader reads.
 

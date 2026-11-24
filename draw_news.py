@@ -1,4 +1,8 @@
-"""Draw the 24 November 2026 front page, v2 dense (1024x1024) with PIL.
+"""Draw the 24 November 2026 front page, v3 (1024x1024) with PIL.
+
+v3: same 29-story dense layout as v2, but the 9 pictograms are replaced
+by generated editorial illustrations (assets-v3/, engraved style),
+centre-cropped into the lead and medium boxes.
 
 Winner anatomy (from the 17-22 Nov leaderboards, win rates 85-87%):
 masthead with story counts, UTC timeline strip, 3 big leads with
@@ -61,6 +65,24 @@ def trunc(text, fnt, max_w, draw):
     while text and draw.textlength(text + "…", font=fnt) > max_w:
         text = text[:-1]
     return text + "…"
+
+
+ASSETS = Path(__file__).resolve().parent / "assets-v3"
+
+
+def paste_illustration(img, name, x0, y0, x1, y1):
+    """Centre-crop a generated illustration to the box and paste it."""
+    src = Image.open(ASSETS / name).convert("RGB")
+    bw, bh = x1 - x0, y1 - y0
+    sw, sh = src.size
+    scale = max(bw / sw, bh / sh)
+    nw, nh = max(1, round(sw * scale)), max(1, round(sh * scale))
+    src = src.resize((nw, nh), Image.LANCZOS)
+    left = (nw - bw) // 2
+    top = (nh - bh) // 2
+    img.paste(src.crop((left, top, left + bw, top + bh)), (x0, y0))
+    d = ImageDraw.Draw(img)
+    d.rectangle([x0, y0, x1 - 1, y1 - 1], outline=INK)
 
 
 def starburst(draw, cx, cy, r_out, r_in, points, fill):
@@ -396,21 +418,21 @@ def draw_map(d, x0, y0, x1, y1, pins):
 LEADS = [
     dict(num=1, region="Eastern Europe", field="Conflict",
          kicker="UKRAINE  •  LIBYA",
-         color=RED, headline=["SUNK 1,700 KM", "FROM HOME"], picto=picto_sea,
+         color=RED, headline=["SUNK 1,700 KM", "FROM HOME"], image="lead-sea.png",
          caption="7 sea drones sank the corvette Merkury off Benghazi; "
                  "the Angara was hit.",
          tag="CONFIRMED", source="Kyiv / AFP"),
     dict(num=2, region="North America", field="Markets",
          kicker="MARKETS  •  TECH",
          color=(21, 128, 61), headline=["NVIDIA SOARS", "31.5% IN A DAY"],
-         picto=picto_markets,
+         image="lead-nvidia.png",
          caption="Nvidia soars 31.5%, its best day in 23 years, and lifts "
                  "Asia on Tuesday.",
          tag="CONFIRMED", source="Reuters"),
     dict(num=3, region="Eastern Europe", field="Space",
          kicker="SPACE  •  RUSSIA",
          color=(27, 42, 74), headline=["A NUCLEAR", "SATELLITE?"],
-         picto=picto_satellite,
+         image="lead-satellite.png",
          caption="Russia reportedly built a nuclear-capable satellite. "
                  "The Kremlin denies it.",
          tag="REPORTED", source="WDR / NDR / SZ"),
@@ -419,32 +441,32 @@ LEADS = [
 MEDIUMS = [
     dict(num=4, region="North America", field="Politics",
          kicker="USA  •  MIDTERMS",
-         color=BLUE, headline="DEMOCRATS WIN 258 SEATS", picto=picto_midterms,
+         color=BLUE, headline="DEMOCRATS WIN 258 SEATS", image="med-midterms.png",
          caption="Democrats take 258 seats, most since 1992.",
          tag="CONFIRMED", source="AP"),
     dict(num=5, region="North America", field="Business",
          kicker="TECH  •  BUSINESS", color=(15, 118, 110),
-         headline="$43.9 BILLION CYBER MEGADEAL", picto=picto_cyber,
+         headline="$43.9 BILLION CYBER MEGADEAL", image="med-cyber.png",
          caption="CrowdStrike to buy Zscaler for $43.9bn.",
          tag="CONFIRMED", source="Reuters"),
     dict(num=6, region="Western Europe", field="Climate",
          kicker="CLIMATE  •  COP31",
-         color=(21, 128, 61), headline="NO DEAL IN ANTALYA", picto=picto_cop31,
+         color=(21, 128, 61), headline="NO DEAL IN ANTALYA", image="med-cop31.png",
          caption="No deal at COP31 after the longest talks ever.",
          tag="CONFIRMED", source="AFP"),
     dict(num=7, region="Middle East", field="Conflict",
          kicker="IRAN  •  GULF",
-         color=(127, 29, 29), headline="BLOCKADE STANDOFF", picto=picto_iran,
+         color=(127, 29, 29), headline="BLOCKADE STANDOFF", image="med-iran.png",
          caption="US blockade holds; Iran calls it aggression.",
          tag="CONFIRMED", source="Reuters"),
     dict(num=8, region="Asia-Pacific", field="Science",
          kicker="ASIA  •  NEPAL",
-         color=(146, 64, 14), headline="QUAKE SHAKES NEPAL", picto=picto_quake,
+         color=(146, 64, 14), headline="QUAKE SHAKES NEPAL", image="med-nepal.png",
          caption="M5.3 quake in Nepal; felt in five countries.",
          tag="CONFIRMED", source="Reuters"),
     dict(num=9, region="Asia-Pacific", field="Conflict",
          kicker="ASIA  •  KOREA",
-         color=RED, headline="SEOUL SCRAMBLES JETS", picto=picto_plane,
+         color=RED, headline="SEOUL SCRAMBLES JETS", image="med-seoul.png",
          caption="Russian jets enter Seoul zone; jets scrambled.",
          tag="CONFIRMED", source="Reuters"),
 ]
@@ -507,10 +529,10 @@ TIMELINE = [
 
 # (big figure, label)
 NUMBERS = [
-    ("+31.5%", "Nvidia in one day — best in 23 years"),
+    ("+31.5%", "Best day in 23 years"),
     ("+6.51%", "Nasdaq to 24,089.56"),
-    ("360,000+", "displaced in Yemen since August"),
-    ("M5.3", "Nepal quake, felt in 5 countries"),
+    ("360,000+", "Displaced in Yemen"),
+    ("M5.3", "Felt in 5 countries"),
 ]
 
 # (what, real date) — 2 columns x 3 rows
@@ -557,11 +579,7 @@ def draw_lead(img, d, s, x, y, w, h):
     for line in s["headline"][:2]:
         d.text((x + 10, hy), line, font=font(SERIF_B, 29), fill=INK)
         hy += 34
-    pw, ph = w - 20, 110
-    layer = Image.new("RGB", (pw, ph), WHITE)
-    ld = ImageDraw.Draw(layer)
-    s["picto"](ld, 0, 0, pw, ph)
-    img.paste(layer, (x + 10, y + 108))
+    paste_illustration(img, s["image"], x + 10, y + 108, x + w - 10, y + 218)
     cap = wrap(s["caption"], font(SANS, 14), w - 20, d)
     if len(cap) > 2:
         print(f"WARNING: lead caption {len(cap)} lines: {s['kicker']}")
@@ -576,11 +594,7 @@ def draw_medium(img, d, s, x, y, w, h):
     d.rectangle([x, y, x + w, y + h], fill=WHITE, outline=INK, width=2)
     d.text((x + 8, y + 4), f"{s['num']}  {s['kicker']}",
            font=font(SANS_B, 10), fill=s["color"])
-    pw, ph = w - 16, 58
-    layer = Image.new("RGB", (pw, ph), WHITE)
-    ld = ImageDraw.Draw(layer)
-    s["picto"](ld, 0, 0, pw, ph)
-    img.paste(layer, (x + 8, y + 22))
+    paste_illustration(img, s["image"], x + 8, y + 22, x + w - 8, y + 80)
     lines = wrap(s["headline"], font(SERIF_B, 14), w - 16, d)
     hy = y + 86
     for line in lines[:3]:
