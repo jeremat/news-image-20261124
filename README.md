@@ -10,25 +10,46 @@ image" bounty ($100 in USDC).
 
 ![The World Today — 24 November 2026](entry.png)
 
-## The six stories
+## The 29 stories
+
+The page follows the format the past daily winners use: a masthead with the
+counts (29 stories, 7 regions, 13 fields), a "The day in UTC" timeline, 3
+big leads, 6 medium stories, 20 one-line briefs, a "Where it happened" map,
+a "Day in numbers" box and a "Date check" footer listing the big stories
+that are *not* from today (GTA 6, the ICJ Myanmar ruling, Cyclone Akvan,
+Harry Kane's injury, the states suing SpaceX, the EU sanctions plan).
 
 1. **Ukraine strikes at sea** — Ukraine says 7 sea drones sank the Russian
    corvette Merkury off Benghazi, Libya, ~1,700 km from home, and hit the
-   cargo ship Angara. Zelensky claimed the strike; Moscow warns of a
-   "dangerous trend".
-2. **A nuclear satellite?** — German media report Russia built Sputnik-S, a
+   cargo ship Angara.
+2. **Nvidia soars 31.5%** — its best day in 23 years; Asia follows on
+   Tuesday, Nasdaq +6.51%.
+3. **A nuclear satellite?** — German media report Russia built Sputnik-S, a
    nuclear-capable satellite, with a launch possible in December. The Kremlin
    denies it; the reports are unverified.
-3. **US midterms** — Democrats take 258 House seats, their biggest majority
-   since 1992, and 56 in the Senate.
-4. **Cyber megadeal** — CrowdStrike agrees to buy Zscaler for $43.9 billion
+4. **US midterms** — Democrats take 258 House seats, their biggest majority
+   since 1992.
+5. **Cyber megadeal** — CrowdStrike agrees to buy Zscaler for $43.9 billion
    in stock, the biggest cybersecurity acquisition on record.
-5. **COP31 fails** — the climate summit in Antalya ends with no overall
+6. **COP31 fails** — the climate summit in Antalya ends with no overall
    agreement after the longest talks ever.
-6. **Gulf blockade** — the US naval blockade holds; Iran calls it an act of
-   aggression, and says the Strait of Hormuz could reopen if sanctions and
-   the blockade are lifted.
+7. **Gulf blockade** — the US naval blockade holds; Iran calls it an act of
+   aggression.
+8. **Nepal quake** — magnitude 5.3 in Koshi province, felt in five countries.
+9. **Seoul scrambles jets** — Russian military aircraft enter South Korea's
+   air defence zone (reported Tuesday).
+10–29. **Briefs** — Mexico tries "El Chapo Isidro" at home, Bukele names the
+    soldiers killed in Haiti, a ninth measles death in Pennsylvania, a car
+    bomb in Colombia, NATO's pledge covering space, Türkiye's Black Sea
+    passage plan, attacks on Zaporizhzhia, Macron's rare-earth reserves, the
+    Champions League tonight, Libya's questions to Kyiv, Somalia and Uganda
+    vs Al-Shabaab, MSF halting work in South Sudan, a boat capsizing in
+    Nigeria, 360,000 displaced in Yemen, Gaza strikes, the Houthis' claim of
+    a Saudi strike, Iran lashing a singer, Iran's seven terms for talks,
+    a death sentence for spying in China, and Tiangong opening to a first
+    foreign astronaut.
 
+Every story is labelled CONFIRMED, REPORTED or CLAIM, with its source.
 All artwork is original, drawn with code — no photographs, no copied logos.
 
 ## How it is built
