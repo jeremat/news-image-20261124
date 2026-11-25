@@ -1,22 +1,28 @@
-"""Draw the 24 November 2026 front page, v3 (1024x1024) with PIL.
+"""Draw the 24 November 2026 front page, v4 (1024x1024) with PIL.
 
-v3: same 29-story dense layout as v2, but the 9 pictograms are replaced
-by generated editorial illustrations (assets-v3/, engraved style),
-centre-cropped into the lead and medium boxes.
+v4: full rebuild after the round-3 result (v3 fell to 552nd/14,561).
+Reading the top-5 round-3 pages showed our v2/v3 had 5 big stories
+misdated (Merkury Sun 22, COP31 Sun 22, Nvidia +31.5% Mon 23,
+CrowdStrike Mon 23, midterms 258 Sun 22) — only 3 of 9 big stories
+were truly Tuesday. v4 fixes the dating: 36 stories, all Tue 24 Nov
+(3 leads + 8 mediums + 25 briefs), 11 drawn illustrations, the
+misdated stories moved into the DATE CHECK, UTC timeline strip,
+numbers box and map rebuilt from the verified Tue stories.
 
-Winner anatomy (from the 17-22 Nov leaderboards, win rates 85-87%):
-masthead with story counts, UTC timeline strip, 3 big leads with
-data-carrying drawn illustrations + CONFIRMED/REPORTED/CLAIM tags and
-sources, a row of medium stories, an ALSO ON briefs list, a WHERE IT
-HAPPENED map with numbered pins, a DATE CHECK footer and a DAY IN
-NUMBERS box. Our v1 (6 stories, 57.7% on 18 Nov) was far too thin.
+Winner anatomy (from the 17-22 Nov leaderboards and the round-3
+top 5, win rates 81-87%): masthead with story counts, UTC timeline
+strip, 3 big leads with data-carrying drawn illustrations +
+CONFIRMED/REPORTED/CLAIM tags and sources, a row of medium stories,
+an ALSO ON briefs list, a WHERE IT HAPPENED map with numbered pins,
+a DATE CHECK footer and a DAY IN NUMBERS box.
 
 Deterministic: fixed text, fixed geometry, no time, no randomness, no
 network. Run it here to produce entry.png; main.py only copies that file.
 
 Story data lives in STORIES below (leads, mediums, briefs, timeline,
 numbers, date check, map pins) and is filled from
-~/workspace/makefun/research-20261124-v2.md.
+~/workspace/makefun/research-20261124-v4.md and
+~/workspace/makefun/research-20261124-v4-top-entries.md.
 """
 
 from pathlib import Path
@@ -416,155 +422,179 @@ def draw_map(d, x0, y0, x1, y1, pins):
 # --- story data (filled from research-20261124-v2.md) ---------------------
 
 LEADS = [
-    dict(num=1, region="Eastern Europe", field="Conflict",
-         kicker="UKRAINE  •  LIBYA",
-         color=RED, headline=["SUNK 1,700 KM", "FROM HOME"], image="lead-sea.png",
-         caption="7 sea drones sank the corvette Merkury off Benghazi; "
-                 "the Angara was hit.",
-         tag="CONFIRMED", source="Kyiv / AFP"),
-    dict(num=2, region="North America", field="Markets",
-         kicker="MARKETS  •  TECH",
-         color=(21, 128, 61), headline=["NVIDIA SOARS", "31.5% IN A DAY"],
-         image="lead-nvidia.png",
-         caption="Nvidia soars 31.5%, its best day in 23 years, and lifts "
-                 "Asia on Tuesday.",
-         tag="CONFIRMED", source="Reuters"),
-    dict(num=3, region="Eastern Europe", field="Space",
-         kicker="SPACE  •  RUSSIA",
-         color=(27, 42, 74), headline=["A NUCLEAR", "SATELLITE?"],
-         image="lead-satellite.png",
-         caption="Russia reportedly built a nuclear-capable satellite. "
-                 "The Kremlin denies it.",
-         tag="REPORTED", source="WDR / NDR / SZ"),
+    dict(num=1, region="Asia-Pacific", field="Politics",
+         kicker="CHINA  •  POLITICS",
+         color=RED, headline=["SHANGHAI CHIEF", "FACES PROBE"],
+         image="med-shanghai.png",
+         caption="Xi's purge hits Politburo member Chen Jining, 4th in a year.",
+         tag="CONFIRMED", source="Reuters / CNN"),
+    dict(num=2, region="Eastern Europe", field="Conflict",
+         kicker="UKRAINE  •  ZAPORIZHZHIA",
+         color=(127, 29, 29), headline=["RAID KILLS 2,", "HURTS 40+"],
+         image="lead-zaporizhzhia.png",
+         caption="96 drones overnight; a five-storey block hit in Zaporizhzhia.",
+         tag="CONFIRMED", source="Reuters / AP"),
+    dict(num=3, region="Asia-Pacific", field="Space",
+         kicker="SPACE  •  CHINA",
+         color=(27, 42, 74), headline=["FIRST FOREIGN", "ASTRONAUT"],
+         image="lead-shenzhou.png",
+         caption="China names Pakistan's Zeeshan Ali for Shenzhou-24, a first.",
+         tag="OFFICIAL", source="Xinhua / AP"),
 ]
 
 MEDIUMS = [
     dict(num=4, region="North America", field="Politics",
-         kicker="USA  •  MIDTERMS",
-         color=BLUE, headline="DEMOCRATS WIN 258 SEATS", image="med-midterms.png",
-         caption="Democrats take 258 seats, most since 1992.",
+         kicker="US SENATE",
+         color=BLUE, headline="DEMOCRATS REACH 56 IN SENATE",
+         image="med-midterms.png",
+         caption="Dems reach 56; Sullivan concedes.",
          tag="CONFIRMED", source="AP"),
-    dict(num=5, region="North America", field="Business",
-         kicker="TECH  •  BUSINESS", color=(15, 118, 110),
-         headline="$43.9 BILLION CYBER MEGADEAL", image="med-cyber.png",
-         caption="CrowdStrike to buy Zscaler for $43.9bn.",
-         tag="CONFIRMED", source="Reuters"),
-    dict(num=6, region="Western Europe", field="Climate",
-         kicker="CLIMATE  •  COP31",
-         color=(21, 128, 61), headline="NO DEAL IN ANTALYA", image="med-cop31.png",
-         caption="No deal at COP31 after the longest talks ever.",
-         tag="CONFIRMED", source="AFP"),
+    dict(num=5, region="Western Europe", field="Business",
+         kicker="PHARMA DEAL", color=(15, 118, 110),
+         headline="SANOFI BUYS INSMED FOR $41BN", image="med-sanofi.png",
+         caption="Sanofi buys Insmed for $41bn.",
+         tag="CONFIRMED", source="Sanofi / WSJ"),
+    dict(num=6, region="Oceania", field="Politics",
+         kicker="SOLOMONS",
+         color=(21, 128, 61), headline="SOLOMONS TO DROP CHINA PACT",
+         image="med-solomons.png",
+         caption="Solomons to let China pact lapse.",
+         tag="REPORTED", source="SMH / ABC"),
     dict(num=7, region="Middle East", field="Conflict",
+         kicker="GAZA",
+         color=(127, 29, 29), headline="HAMAS CHIEF KILLED",
+         image="med-hamas.png",
+         caption="Strike kills Hamas security chief.",
+         tag="CONFIRMED", source="Reuters / WaPo"),
+    dict(num=8, region="North America", field="Markets",
+         kicker="MARKETS",
+         color=(21, 128, 61), headline="DOW BACK ABOVE 50,000",
+         image="med-markets.png",
+         caption="Dow above 50,000; Taiex +8.99%.",
+         tag="CONFIRMED", source="ABC / Reuters"),
+    dict(num=9, region="Middle East", field="Conflict",
          kicker="IRAN  •  GULF",
          color=(127, 29, 29), headline="BLOCKADE STANDOFF", image="med-iran.png",
-         caption="US blockade holds; Iran calls it aggression.",
+         caption="US blockade holds; Iran protests.",
          tag="CONFIRMED", source="Reuters"),
-    dict(num=8, region="Asia-Pacific", field="Science",
+    dict(num=10, region="Asia-Pacific", field="Science",
          kicker="ASIA  •  NEPAL",
          color=(146, 64, 14), headline="QUAKE SHAKES NEPAL", image="med-nepal.png",
-         caption="M5.3 quake in Nepal; felt in five countries.",
+         caption="M5.3 quake; felt in five countries.",
          tag="CONFIRMED", source="Reuters"),
-    dict(num=9, region="Asia-Pacific", field="Conflict",
+    dict(num=11, region="Asia-Pacific", field="Conflict",
          kicker="ASIA  •  KOREA",
          color=RED, headline="SEOUL SCRAMBLES JETS", image="med-seoul.png",
-         caption="Russian jets enter Seoul zone; jets scrambled.",
+         caption="Russian jets enter Seoul zone.",
          tag="CONFIRMED", source="Reuters"),
 ]
 
-# one line each, numbered 10-29 (20 briefs)
+# one line each, numbered 12-36 (25 briefs)
 BRIEFS = [
-    dict(num=10, region="North America", field="Crime",
+    dict(num=12, region="North America", field="Crime",
          text="Mexico to try 'El Chapo Isidro' at home."),
-    dict(num=11, region="North America", field="Conflict",
-         text="Bukele names 3 soldiers killed in Haiti."),
-    dict(num=12, region="North America", field="Health",
-         text="Measles: ninth death in Pennsylvania."),
     dict(num=13, region="South America", field="Conflict",
-         text="Car bomb hits Colombia governor's office."),
+         text="Car bomb in Meta hurts 23."),
     dict(num=14, region="Western Europe", field="Politics",
          text="NATO: defence pledge now covers space."),
-    dict(num=15, region="Eastern Europe", field="Conflict",
-         text="Türkiye works on safe Black Sea passage."),
-    dict(num=16, region="Eastern Europe", field="Conflict",
-         text="Zaporizhzhia hit by new night attacks."),
-    dict(num=17, region="Western Europe", field="Politics",
-         text="Macron wants rare-earth reserves."),
-    dict(num=18, region="Western Europe", field="Sport",
-         text="Champions League returns tonight."),
-    dict(num=19, region="Africa", field="Conflict",
+    dict(num=15, region="Africa", field="Conflict",
          text="Libya demands answers from Kyiv."),
-    dict(num=20, region="Africa", field="Conflict",
-         text="Somalia, Uganda step up vs Al-Shabaab."),
-    dict(num=21, region="Africa", field="Health",
+    dict(num=16, region="Africa", field="Health",
          text="MSF suspends work in South Sudan's Yei."),
-    dict(num=22, region="Africa", field="Disaster",
+    dict(num=17, region="Africa", field="Disaster",
          text="Boat capsizes in Nigeria, at least 24 dead."),
-    dict(num=23, region="Middle East", field="Humanitarian",
-         text="Yemen: 360,000 displaced since August."),
-    dict(num=24, region="Middle East", field="Conflict",
-         text="Gaza strikes kill 3, incl. UNRWA worker."),
-    dict(num=25, region="Middle East", field="Conflict",
+    dict(num=18, region="Middle East", field="Conflict",
          text="Houthis claim Saudi strike kills 17."),
-    dict(num=26, region="Middle East", field="Culture",
-         text="Iran lashes singer Parastoo Ahmadi."),
-    dict(num=27, region="Middle East", field="Politics",
-         text="Iran rules out talks until US meets 7 terms."),
-    dict(num=28, region="Asia-Pacific", field="Politics",
-         text="China sentences official to death for spying."),
-    dict(num=29, region="Asia-Pacific", field="Science",
-         text="China opens Tiangong to first foreign astronaut."),
+    dict(num=19, region="Africa", field="Sport",
+         text="Senegal win back AFCON title."),
+    dict(num=20, region="World", field="Humanitarian",
+         text="UN: 5 women killed every hour."),
+    dict(num=21, region="Western Europe", field="Health",
+         text="Record 5,258 heat deaths in England."),
+    dict(num=22, region="Oceania", field="Sport",
+         text="England thrash Aussies in T20."),
+    dict(num=23, region="South America", field="Politics",
+         text="Venezuela talks end, no roadmap."),
+    dict(num=24, region="Western Europe", field="Sport",
+         text="Arsenal held 1-1 by Dortmund."),
+    dict(num=25, region="Asia-Pacific", field="Disaster",
+         text="Hanoi eatery gas blast kills 6."),
+    dict(num=26, region="Middle East", field="Politics",
+         text="Baghdad orders Kurdish oil takeover."),
+    dict(num=27, region="Asia-Pacific", field="Politics",
+         text="Hasina names 16 December for return."),
+    dict(num=28, region="South America", field="Crime",
+         text="Cartagena: 25 held hostage in store."),
+    dict(num=29, region="Africa", field="Health",
+         text="Gavi secures 1.5M Ebola doses for DRC."),
+    dict(num=30, region="Middle East", field="Disaster",
+         text="UAE bus crash kills at least 11."),
+    dict(num=31, region="Eastern Europe", field="Politics",
+         text="Hungary PM meets Zelensky in Uzhhorod."),
+    dict(num=32, region="Africa", field="Humanitarian",
+         text="Tigray: Amnesty seeks war-crimes probe."),
+    dict(num=33, region="Asia-Pacific", field="Politics",
+         text="Beijing extends minerals-ban pause to 27 Jan."),
+    dict(num=34, region="Asia-Pacific", field="Disaster",
+         text="India bus crash kills 4 children."),
+    dict(num=35, region="Oceania", field="Business",
+         text="Big Tech fines up to 5% of revenue."),
+    dict(num=36, region="South America", field="Politics",
+         text="Bolsonaro pneumonia in ICU."),
 ]
 
 # (UTC time, short label, max ~28 chars)
 TIMELINE = [
-    ("01:04", "Seoul reports Russian jets"),
-    ("01:06", "Bukele names 3 dead in Haiti"),
+    ("00:30", "India bus crash kills 4"),
+    ("01:00", "Hanoi eatery blast kills 6"),
     ("01:32", "M5.3 quake hits Nepal"),
-    ("02:09", "US drone caught cartel boss"),
-    ("02:15", "NATO: pledge covers space"),
-    ("04:49", "Car bomb in Colombia"),
-    ("07:04", "MSF halts work in S. Sudan"),
-    ("20:00", "Arsenal v Dortmund"),
+    ("05:30", "Sanofi buys Insmed $41bn"),
+    ("07:05", "UN: 5 women killed hourly"),
+    ("12:26", "Shanghai chief probed"),
+    ("14:57", "Senegal win back AFCON title"),
+    ("21:00", "Dow back above 50,000"),
 ]
 
 # (big figure, label)
 NUMBERS = [
-    ("+31.5%", "Best day in 23 years"),
-    ("+6.51%", "Nasdaq to 24,089.56"),
-    ("360,000+", "Displaced in Yemen"),
-    ("M5.3", "Felt in 5 countries"),
+    ("$41BN", "Sanofi's biggest deal"),
+    ("+8.99%", "Taiex record gain"),
+    ("50,000", "Dow back above"),
+    ("5,258", "Record heat deaths"),
 ]
 
 # (what, real date) — 2 columns x 3 rows
 DATECHECK = [
+    ("Merkury sunk", "Sun 22"),
+    ("COP31 ends, no deal", "Sun 22"),
+    ("Nvidia +31.5%", "Mon 23"),
+    ("CrowdStrike-Zscaler", "Mon 23"),
     ("GTA 6 launch", "19 Nov"),
     ("ICJ Myanmar ruling", "19 Nov"),
-    ("Cyclone Akvan", "20 Nov"),
-    ("Kane out for months", "20 Nov"),
-    ("States sue SpaceX", "23 Nov"),
-    ("EU sanctions plan", "23 Nov"),
 ]
 
 MAP_PINS = [
-    (1, 18.0, 30.0),    # Benghazi (nudged: avoids Antalya pin)
-    (2, -121.9, 37.3),  # Santa Clara (Nvidia)
-    (3, 40.0, 57.0),    # Moscow (nudged: avoids Antalya pin)
-    (4, -77.0, 38.9),   # Washington
-    (5, -97.7, 30.3),   # Austin (CrowdStrike)
-    (6, 36.0, 41.0),    # Antalya (nudged: avoids Benghazi/Moscow pins)
-    (7, 56.5, 26.5),    # Strait of Hormuz
-    (8, 85.3, 27.7),    # Nepal
-    (9, 127.0, 37.5),   # Seoul
+    (2, 35.2, 47.8),    # Zaporizhzhia
+    (3, 98.5, 40.9),    # Jiuquan (Shenzhou-24)
+    (4, -77.0, 38.9),   # Washington (Senate)
+    (5, 2.3, 48.9),     # Paris (Sanofi)
+    (6, 160.0, -9.4),   # Honiara (Solomons)
+    (7, 34.4, 31.5),    # Gaza City
+    (9, 56.5, 26.5),    # Strait of Hormuz
+    (10, 85.3, 27.7),   # Nepal
+    (11, 127.0, 37.5),  # Seoul
 ]
 
 TAG_COLORS = {"CONFIRMED": (21, 128, 61), "REPORTED": (180, 120, 0),
               "CLAIM": (180, 35, 24), "OFFICIAL": (29, 78, 216)}
 
 
-def tag_line(d, x, y, tag, source, size):
+def tag_line(d, x, y, tag, source, size, show_source=True):
     col = TAG_COLORS.get(tag, MUTED)
     d.ellipse([x, y + 3, x + 8, y + 11], fill=col)
     d.text((x + 12, y), tag, font=font(SANS_B, size), fill=col)
+    if not show_source:
+        return
     w = d.textlength(tag, font=font(SANS_B, size))
     d.text((x + 12 + w + 6, y), "— " + source, font=font(SANS, size),
            fill=MUTED)
@@ -595,17 +625,20 @@ def draw_medium(img, d, s, x, y, w, h):
     d.text((x + 8, y + 4), f"{s['num']}  {s['kicker']}",
            font=font(SANS_B, 10), fill=s["color"])
     paste_illustration(img, s["image"], x + 8, y + 22, x + w - 8, y + 80)
-    lines = wrap(s["headline"], font(SERIF_B, 14), w - 16, d)
+    lines = wrap(s["headline"], font(SERIF_B, 13), w - 16, d)
     hy = y + 86
-    for line in lines[:3]:
-        d.text((x + 8, hy), line, font=font(SERIF_B, 14), fill=INK)
-        hy += 17
+    for line in lines[:4]:
+        d.text((x + 8, hy), line, font=font(SERIF_B, 13), fill=INK)
+        hy += 16
     cap = wrap(s["caption"], font(SANS, 11), w - 16, d)
+    room = (y + h - 18) - (hy + 2)
+    n_cap = max(0, min(3, room // 13))
     cy = hy + 2
-    for line in cap[:2]:
+    for line in cap[:n_cap]:
         d.text((x + 8, cy), line, font=font(SANS, 11), fill=MUTED)
         cy += 13
-    tag_line(d, x + 8, y + h - 16, s["tag"], s["source"], 10)
+    tag_line(d, x + 8, y + h - 16, s["tag"], s["source"], 10,
+             show_source=False)
 
 
 def build():
@@ -654,14 +687,14 @@ def build():
     for col in range(2):
         cx = 20 + col * 325
         for j, b in enumerate(BRIEFS[col * half:(col + 1) * half]):
-            by = 728 + j * 16
+            by = 728 + j * 13
             if by > 890:
                 print(f"WARNING: brief overflows: {b['num']} {b['text'][:40]}")
                 continue
-            d.text((cx, by), f"{b['num']}.", font=font(SANS_B, 12), fill=RED)
+            d.text((cx, by), f"{b['num']}.", font=font(SANS_B, 11), fill=RED)
             d.text((cx + 26, by),
-                   trunc(b["text"], font(SANS, 12), 295, d),
-                   font=font(SANS, 12), fill=INK)
+                   trunc(b["text"], font(SANS, 11), 295, d),
+                   font=font(SANS, 11), fill=INK)
     d.text((672, 700), "WHERE IT HAPPENED", font=font(SANS_B, 15), fill=INK)
     d.line([672, 722, W - 20, 722], fill=INK, width=2)
     draw_map(d, 672, 730, W - 20, 892, MAP_PINS)
@@ -692,7 +725,8 @@ def build():
            font=font(SANS, 11), fill=MUTED, anchor="ma")
     d.text((W // 2, 999),
            "REPORTED = outlets report it  ·  CLAIM = a party says so, "
-           "unverified  ·  Sources: Reuters, AP, AFP, BBC, Bloomberg.",
+           "unverified  ·  Sources: Reuters, AP, AFP, BBC, Bloomberg, "
+           "CNN, Xinhua.",
            font=font(SANS, 11), fill=MUTED, anchor="ma")
     out = Path(__file__).resolve().parent / "entry.png"
     img.save(out, optimize=True, compress_level=9)

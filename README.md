@@ -10,47 +10,55 @@ image" bounty ($100 in USDC).
 
 ![The World Today — 24 November 2026](entry.png)
 
-## The 29 stories
+## The 36 stories
 
 The page follows the format the past daily winners use: a masthead with the
-counts (29 stories, 7 regions, 13 fields), a "The day in UTC" timeline, 3
-big leads, 6 medium stories, 20 one-line briefs, a "Where it happened" map,
+counts (36 stories, 9 regions, 11 fields), a "The day in UTC" timeline, 3
+big leads, 8 medium stories, 25 one-line briefs, a "Where it happened" map,
 a "Day in numbers" box and a "Date check" footer listing the big stories
-that are *not* from today (GTA 6, the ICJ Myanmar ruling, Cyclone Akvan,
-Harry Kane's injury, the states suing SpaceX, the EU sanctions plan).
+that are *not* from today. The v4 is a full rebuild: reading the top-5
+round-3 pages showed the v2/v3 carried five big stories from Sunday or
+Monday (the Merkury sinking, the COP31 ending, the Nvidia surge, the
+CrowdStrike deal, the 258-seat House tally) — they now sit in the Date
+check, and every story on the page happened, or was first reported, on
+Tuesday 24 November 2026.
 
-1. **Ukraine strikes at sea** — Ukraine says 7 sea drones sank the Russian
-   corvette Merkury off Benghazi, Libya, ~1,700 km from home, and hit the
-   cargo ship Angara.
-2. **Nvidia soars 31.5%** — its best day in 23 years; Asia follows on
-   Tuesday, Nasdaq +6.51%.
-3. **A nuclear satellite?** — German media report Russia built Sputnik-S, a
-   nuclear-capable satellite, with a launch possible in December. The Kremlin
-   denies it; the reports are unverified.
-4. **US midterms** — Democrats take 258 House seats, their biggest majority
-   since 1992.
-5. **Cyber megadeal** — CrowdStrike agrees to buy Zscaler for $43.9 billion
-   in stock, the biggest cybersecurity acquisition on record.
-6. **COP31 fails** — the climate summit in Antalya ends with no overall
-   agreement after the longest talks ever.
-7. **Gulf blockade** — the US naval blockade holds; Iran calls it an act of
+1. **Shanghai party chief probed** — China's anti-graft watchdog
+   investigates Politburo member Chen Jining, the 4th Politburo member
+   probed this term.
+2. **Zaporizhzhia raid** — a Russian raid kills 2 and hurts 40+; 96 drones
+   overnight, a five-storey block hit.
+3. **First foreign astronaut** — China names Pakistan's Muhammad Zeeshan
+   Ali for Shenzhou-24, the first foreign astronaut on Tiangong.
+4. **Democrats reach 56 in the Senate** — Sullivan concedes in Alaska.
+5. **Sanofi buys Insmed for $41bn** — its biggest deal in 20 years.
+6. **Solomons drop the China pact** — the 2022 police pact will lapse
+   in 2027.
+7. **Hamas security chief killed** — an Israeli strike in Gaza City.
+8. **Dow back above 50,000** — and Taiwan's Taiex gains a record 8.99%.
+9. **Gulf blockade** — the US naval blockade holds; Iran calls it an act of
    aggression.
-8. **Nepal quake** — magnitude 5.3 in Koshi province, felt in five countries.
-9. **Seoul scrambles jets** — Russian military aircraft enter South Korea's
-   air defence zone (reported Tuesday).
-10–29. **Briefs** — Mexico tries "El Chapo Isidro" at home, Bukele names the
-    soldiers killed in Haiti, a ninth measles death in Pennsylvania, a car
-    bomb in Colombia, NATO's pledge covering space, Türkiye's Black Sea
-    passage plan, attacks on Zaporizhzhia, Macron's rare-earth reserves, the
-    Champions League tonight, Libya's questions to Kyiv, Somalia and Uganda
-    vs Al-Shabaab, MSF halting work in South Sudan, a boat capsizing in
-    Nigeria, 360,000 displaced in Yemen, Gaza strikes, the Houthis' claim of
-    a Saudi strike, Iran lashing a singer, Iran's seven terms for talks,
-    a death sentence for spying in China, and Tiangong opening to a first
-    foreign astronaut.
+10. **Nepal quake** — magnitude 5.3 in Koshi province, felt in five
+    countries.
+11. **Seoul scrambles jets** — Russian military aircraft enter South
+    Korea's air defence zone (reported Tuesday).
+12–36. **Briefs** — Mexico tries "El Chapo Isidro" at home, a car bomb in
+    Meta, NATO's pledge covering space, Libya's questions to Kyiv, MSF
+    halting work in South Sudan, a boat capsizing in Nigeria, the Houthis'
+    claim of a Saudi strike, Senegal winning back the AFCON title, the UN
+    femicide report (5 women killed every hour), a record 5,258 heat
+    deaths in England, England thrashing Australia in the T20, Venezuela
+    talks ending with no roadmap, Arsenal held 1-1 by Dortmund, a gas
+    blast at a Hanoi eatery, Baghdad ordering a Kurdish oil takeover,
+    Hasina naming 16 December for her return, 25 hostages in Cartagena,
+    Gavi securing 1.5M Ebola doses for DR Congo, a bus crash in Ras Al
+    Khaimah, Hungary's PM meeting Zelensky, an Amnesty war-crimes probe
+    in Tigray, Beijing extending the minerals-ban pause, a bus crash
+    killing 4 children in India, Big Tech fines of up to 5% of revenue,
+    and Bolsonaro in intensive care with pneumonia.
 
 Every story is labelled CONFIRMED, REPORTED or CLAIM, with its source.
-All artwork is original — the 9 lead and medium illustrations are
+All artwork is original — the 11 lead and medium illustrations are
 generated editorial drawings (in `assets-v3/`), the rest is drawn with
 code. No photographs, no copied logos.
 
